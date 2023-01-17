@@ -15,7 +15,7 @@ namespace OpenAILibrary
         public OpenAILib()
         {
             APIKey = new GetSecret().GetSecretByKey("ApiKey");
-        }
+        }//"ApiKey": "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"
 
         public string OpenAIPrompt(string question, float temperature)
         {
