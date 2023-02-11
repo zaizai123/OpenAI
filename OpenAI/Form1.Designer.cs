@@ -36,6 +36,7 @@
             this.trackBarTemperature = new System.Windows.Forms.TrackBar();
             this.labelTemperature = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.createImageBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,20 +86,20 @@
             this.richTextBoxAnswer.TabIndex = 5;
             this.richTextBoxAnswer.Text = "";
             // 
-            // trackBarTempture
+            // trackBarTemperature
             // 
             this.trackBarTemperature.LargeChange = 3;
             this.trackBarTemperature.Location = new System.Drawing.Point(960, 548);
-            this.trackBarTemperature.Name = "trackBarTempture";
+            this.trackBarTemperature.Name = "trackBarTemperature";
             this.trackBarTemperature.Size = new System.Drawing.Size(104, 45);
             this.trackBarTemperature.TabIndex = 6;
             this.trackBarTemperature.ValueChanged += new System.EventHandler(this.trackBarTemperature_ValueChanged);
             // 
-            // labelTempture
+            // labelTemperature
             // 
             this.labelTemperature.AutoSize = true;
             this.labelTemperature.Location = new System.Drawing.Point(970, 530);
-            this.labelTemperature.Name = "labelTempture";
+            this.labelTemperature.Name = "labelTemperature";
             this.labelTemperature.Size = new System.Drawing.Size(78, 15);
             this.labelTemperature.TabIndex = 7;
             this.labelTemperature.Text = "Tempture: 0.0";
@@ -112,11 +113,23 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "0                        1";
             // 
+            // createImageBtn
+            // 
+            this.createImageBtn.Location = new System.Drawing.Point(970, 689);
+            this.createImageBtn.Name = "createImageBtn";
+            this.createImageBtn.Size = new System.Drawing.Size(103, 23);
+            this.createImageBtn.TabIndex = 9;
+            this.createImageBtn.Text = "Create Image";
+            this.createImageBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.createImageBtn.UseVisualStyleBackColor = true;
+            this.createImageBtn.Click += new System.EventHandler(this.createImageBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 736);
+            this.Controls.Add(this.createImageBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelTemperature);
             this.Controls.Add(this.trackBarTemperature);
@@ -144,5 +157,6 @@
         private TrackBar trackBarTemperature;
         private Label labelTemperature;
         private Label label2;
+        private Button createImageBtn;
     }
 }

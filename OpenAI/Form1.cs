@@ -31,5 +31,11 @@ namespace OpenAI
             temperature = (float)trackBarTemperature.Value / 10.0f;
             labelTemperature.Text = $"Tempture: {temperature.ToString("0.0")}";
         }
+
+        private void createImageBtn_Click(object sender, EventArgs e)
+        {
+            richTextBoxAnswer.Text = ".....";           
+            richTextBoxAnswer.Text = openAI.CreateImage(prompt: richTextBoxHumanQuestion.Text);
+        }
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Net;
+using System.Text;
 
 namespace OpenAILibrary
 {
@@ -15,7 +11,7 @@ namespace OpenAILibrary
         public OpenAILib()
         {
             APIKey = new GetSecret().GetSecretByKey("ApiKey");
-        }//"ApiKey": "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"
+        }
 
         public string OpenAIPrompt(string question, float temperature)
         {
@@ -61,6 +57,48 @@ namespace OpenAILibrary
             }
         }
 
+        public string CreateImage(string prompt)
+        {
+            string url = @"https://api.openai.com/v1/images/generations";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Headers.Add("Authorization", "Bearer " + APIKey);
+
+            string textCompletion = "";
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                var requestBody = new Dictionary<string, object>()
+                {
+                    { "prompt", prompt },
+                    { "n", 1 },
+                    { "size", "1024x1024" }
+                };
+                string json = JsonConvert.SerializeObject(requestBody);
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+            try
+            {
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    textCompletion = ((ImageData)JsonConvert.DeserializeObject<ImageData>(result)).Data[0].Url;
+                }
+                Process photoViewer = new Process();
+                photoViewer.StartInfo.FileName = @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe";
+                photoViewer.StartInfo.Arguments = textCompletion;
+                photoViewer.Start();
+                return textCompletion;
+            }
+            catch
+            {
+                return "OOPS! Try a different image text.";
+            }
+        }
+
 
         private string GetUrlWithParameter(string url, Dictionary<string, string> parameters)
         {
@@ -90,6 +128,17 @@ namespace OpenAILibrary
             public int Prompt_Tokens { get; set; }
             public int Completion_Tokens { get; set; }
             public int Total_Tokens { get; set; }
+        }
+
+        public class ImageData
+        {
+            public int Created { get; set; }
+            public List<DataItem> Data { get; set; }
+        }
+
+        public class DataItem
+        {
+            public string Url { get; set; }
         }
     }
 }
