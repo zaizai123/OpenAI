@@ -13,7 +13,7 @@ namespace OpenAILibrary
             APIKey = new GetSecret().GetSecretByKey("ApiKey");
         }
 
-        public string OpenAIPrompt(string question, float temperature)
+        public string OpenAIPrompt(string question, float temperature, string model)
         {
             string ret = "";
             string url = @"https://api.openai.com/v1/completions";
@@ -26,7 +26,7 @@ namespace OpenAILibrary
             {
                 var requestBody = new Dictionary<string, object>()
                 {
-                    { "model", "text-davinci-003" },
+                    { "model", model },
                     { "prompt", question },
                     { "temperature", temperature },
                     { "top_p", 1 },

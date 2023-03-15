@@ -15,10 +15,10 @@ namespace OpenAI
         private void buttonSend_Click(object sender, EventArgs e)
         {
 
-                richTextBoxAnswer.Text = "...";
-                string answer = openAI.OpenAIPrompt(question: richTextBoxHumanQuestion.Text, temperature);
-                richTextBoxAnswer.Text = answer;
-         
+            richTextBoxAnswer.Text = "...";
+            string answer = openAI.OpenAIPrompt(question: richTextBoxHumanQuestion.Text, temperature, comboBoxModel.Text);
+            richTextBoxAnswer.Text = answer;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace OpenAI
 
         private void createImageBtn_Click(object sender, EventArgs e)
         {
-            richTextBoxAnswer.Text = ".....";           
+            richTextBoxAnswer.Text = ".....";
             richTextBoxAnswer.Text = openAI.CreateImage(prompt: richTextBoxHumanQuestion.Text);
         }
     }
